@@ -12,6 +12,10 @@ let package = Package(
             name: "UIx",
             targets: ["UIx"]
 		),
+        .library(
+            name: "Kletki",
+            targets: ["Kletki"]
+		),
     ],
 	dependencies: [
 		.package(url: "https://github.com/P0ed/Fx", from: "3.2.0"),
@@ -19,7 +23,10 @@ let package = Package(
     targets: [
         .target(
             name: "UIx",
-			dependencies: ["Fx"]
+			dependencies: ["Fx", "Kletki"]
+		),
+        .target(
+            name: "Kletki"
 		),
         .testTarget(
             name: "UIxTests",
