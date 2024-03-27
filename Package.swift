@@ -12,18 +12,12 @@ let package = Package(
             name: "UIx",
             targets: ["UIx"]
 		),
-        .library(
-            name: "Kletki",
-            targets: ["Kletki"]
-		),
     ],
 	dependencies: [
 		.package(url: "https://github.com/P0ed/Fx", from: "3.2.0"),
+		.package(url: "https://github.com/P0ed/Kletki", branch: "main"),
 	],
     targets: [
-        .target(
-            name: "Kletki"
-		),
         .target(
             name: "UIx",
 			dependencies: ["Fx", "Kletki"]
