@@ -6,11 +6,11 @@ extension UIGestureRecognizer: GestureRecognizerProtocol {}
 
 public extension GestureRecognizerProtocol where Self: UIGestureRecognizer {
 
-	init(handler: @escaping Sink<Self>) {
+	init(handler: @escaping (Self) -> Void) {
 		self.init(handler: handler, setupDelegate: sink)
 	}
 
-	init(handler: @escaping Sink<Self>, setupDelegate setup: Sink<GestureRecognizerDelegate<Self>>) {
+	init(handler: @escaping (Self) -> Void, setupDelegate setup: (GestureRecognizerDelegate<Self>) -> Void) {
 		self.init(target: nil, action: nil)
 		addHandler(handler)
 		setupDelegate(setup)

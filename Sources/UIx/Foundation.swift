@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import ObjectiveC.runtime
 import Fx
 
@@ -43,6 +43,9 @@ public extension NSObject {
 		}
 	}
 }
+
+public protocol SelfConstraints {}
+extension NSObject: SelfConstraints {}
 
 public extension SelfConstraints where Self: NSObject {
 

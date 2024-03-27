@@ -1,3 +1,5 @@
+import UIKit
+
 public func HStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,

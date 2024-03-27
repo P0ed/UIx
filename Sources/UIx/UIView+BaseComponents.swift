@@ -1,8 +1,8 @@
 import UIKit
 import Fx
 
-public let CenterX = HStack(alignment: .center) • const
-public let CenterY = VStack(alignment: .center) • const
+public let CenterX = HStack(alignment: .center) • lift
+public let CenterY = VStack(alignment: .center) • lift
 public let CenterXY = CenterX • CenterY
 
 public extension UIView {
@@ -42,46 +42,5 @@ public extension UIView {
 			.binding(\.attributedText, to: text),
 			labelStyle
 		]
-	}
-	static func line(text: String, style: TextStyle, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		UILabel().applyingStyle § ∑[
-			.assigning(\.attributedText, to: .make(string: text, style: style)),
-			labelStyle
-		]
-	}
-	static func line(text: Property<String>, style: TextStyle, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		UILabel().applyingStyle § ∑[
-			.binding(\.attributedText, to: text.map { .make(string: $0, style: style) }),
-			labelStyle
-		]
-	}
-
-	static func lines(text: NSAttributedString, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		LayoutView(multilineLabel: UILabel().applyingStyle § ∑[
-			.assigning(\.attributedText, to: text),
-			.multiline(),
-			labelStyle
-		])
-	}
-	static func lines(text: Property<NSAttributedString>, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		LayoutView(multilineLabel: UILabel().applyingStyle § ∑[
-			.binding(\.attributedText, to: text),
-			.multiline(),
-			labelStyle
-		])
-	}
-	static func lines(text: String, style: TextStyle, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		LayoutView(multilineLabel: UILabel().applyingStyle § ∑[
-			.assigning(\.attributedText, to: .make(string: text, style: style)),
-			.multiline(),
-			labelStyle
-		])
-	}
-	static func lines(text: Property<String>, style: TextStyle, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
-		LayoutView(multilineLabel: UILabel().applyingStyle § ∑[
-			.binding(\.attributedText, to: text.map { .make(string: $0, style: style) }),
-			.multiline(),
-			labelStyle
-		])
 	}
 }

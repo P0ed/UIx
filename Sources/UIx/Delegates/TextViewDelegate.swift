@@ -3,7 +3,7 @@ import Fx
 
 public extension UITextView {
 
-	convenience init(setupDelegate setup: Sink<TextViewDelegate>) {
+	convenience init(setupDelegate setup: (TextViewDelegate) -> Void) {
 		self.init()
 		let delegate = TextViewDelegate()
 		setup(delegate)

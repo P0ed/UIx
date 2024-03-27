@@ -243,15 +243,13 @@ public extension LayoutBox {
 }
 
 public final class LayoutView: UIView {
-	private var lifetime: Disposable?
-	
 	@MutableProperty
 	public private(set) var size: CGSize = .zero
 
 	public init(layout: ((CGSize) -> Void)? = nil) {
 		super.init(frame: .zero)
 		if let layout = layout {
-			lifetime = _size.observe(layout)
+			lifetime += _size.observe(layout)
 		}
 	}
 
