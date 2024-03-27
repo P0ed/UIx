@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "Layout",
+    name: "UIx",
 	platforms: [
 		.iOS(.v14)
 	],
     products: [
         .library(
-            name: "Layout",
-            targets: ["Layout"]
+            name: "UIx",
+            targets: ["UIx"]
 		),
     ],
 	dependencies: [
@@ -18,12 +18,12 @@ let package = Package(
 	],
     targets: [
         .target(
-            name: "Layout",
+            name: "UIx",
 			dependencies: ["Fx"]
 		),
         .testTarget(
-            name: "LayoutTests",
-            dependencies: ["Layout"]
+            name: "UIxTests",
+            dependencies: ["UIx"]
 		),
     ]
 )

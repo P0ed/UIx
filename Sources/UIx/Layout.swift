@@ -206,6 +206,40 @@ public extension LayoutBox {
 		constraint.isActive = true
 		return constraint
 	}
+
+	@discardableResult
+	func matchWidth(to width: Property<CGFloat>, relation: NSLayoutConstraint.Relation = .equal, priority: UILayoutPriority = .required) -> NSLayoutConstraint {
+		disableAutoresizingMaskContstraints()
+		let constraint: NSLayoutConstraint = {
+			switch relation {
+			case .equal: return widthAnchor.constraint(equalToConstant: width.value)
+			case .lessThanOrEqual: return widthAnchor.constraint(lessThanOrEqualToConstant: width.value)
+			case .greaterThanOrEqual: return widthAnchor.constraint(greaterThanOrEqualToConstant: width.value)
+			@unknown default: fatalError()
+			}
+		}()
+		constraint.priority = priority
+		constraint.isActive = true
+		lifetime += width.signal.observe { constraint.constant = $0 }
+		return constraint
+	}
+
+	@discardableResult
+	func matchHeight(to height: Property<CGFloat>, relation: NSLayoutConstraint.Relation = .equal, priority: UILayoutPriority = .required) -> NSLayoutConstraint {
+		disableAutoresizingMaskContstraints()
+		let constraint: NSLayoutConstraint = {
+			switch relation {
+			case .equal: return heightAnchor.constraint(equalToConstant: height.value)
+			case .lessThanOrEqual: return heightAnchor.constraint(lessThanOrEqualToConstant: height.value)
+			case .greaterThanOrEqual: return heightAnchor.constraint(greaterThanOrEqualToConstant: height.value)
+			@unknown default: fatalError()
+			}
+		}()
+		constraint.priority = priority
+		constraint.isActive = true
+		lifetime += height.signal.observe { constraint.constant = $0 }
+		return constraint
+	}
 }
 
 public final class LayoutView: UIView {
