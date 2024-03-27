@@ -22,11 +22,11 @@ let package = Package(
 	],
     targets: [
         .target(
-            name: "UIx",
-			dependencies: ["Fx", "Kletki"]
+            name: "Kletki"
 		),
         .target(
-            name: "Kletki"
+            name: "UIx",
+			dependencies: ["Fx", "Kletki"]
 		),
         .testTarget(
             name: "UIxTests",
