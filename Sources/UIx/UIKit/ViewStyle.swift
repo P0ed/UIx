@@ -220,11 +220,11 @@ public extension ViewStyle where View: Button {
 		}
 	}
 
-//	static func highlightedBackground(normal: UIColor, highlighted: (UIColor) -> UIColor = \.darker) -> ViewStyle {
-//		.highlighted { [highlighted = highlighted(normal)] button, isHighlighted in
-//			button.bind(\.backgroundColor, to: isHighlighted.map { $0 ? highlighted : normal })
-//		}
-//	}
+	static func highlightedBackground(normal: UIColor, highlighted: (UIColor) -> UIColor = \.darker) -> ViewStyle {
+		.highlighted { [highlighted = highlighted(normal)] button, isHighlighted in
+			button.bind(\.backgroundColor, to: isHighlighted.map { $0 ? highlighted : normal })
+		}
+	}
 
 	static func highlightedTintColor(normal: UIColor, highlighted: UIColor) -> ViewStyle {
 		.highlighted { button, isHighlighted in
