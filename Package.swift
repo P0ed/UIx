@@ -15,12 +15,11 @@ let package = Package(
     ],
 	dependencies: [
 		.package(url: "https://github.com/P0ed/Fx", from: "3.2.0"),
-		.package(url: "https://github.com/P0ed/Kletki", branch: "main"),
 	],
     targets: [
         .target(
             name: "UIx",
-			dependencies: ["Fx", "Kletki"]
+			dependencies: ["Fx"]
 		),
         .testTarget(
             name: "UIxTests",

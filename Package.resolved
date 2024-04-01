@@ -1,5 +1,5 @@
 {
-  "originHash" : "b7df9cc1a79d949104c90c37f702c94a234f9112878f9918153abb21b467fc4d",
+  "originHash" : "fec1add3bae60585f78d52df799ddce2b17c608eb3788c00a6bf36fbfb074bb9",
   "pins" : [
     {
       "identity" : "fx",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "08da99251d5e5905d8761a2c7be2a7e8cc98eacc",
         "version" : "3.2.0"
-      }
-    },
-    {
-      "identity" : "kletki",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/P0ed/Kletki",
-      "state" : {
-        "branch" : "main",
-        "revision" : "f68d294e6172bf5bd2203a8c916226a8b17dd551"
       }
     }
   ],
