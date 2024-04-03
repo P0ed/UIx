@@ -138,3 +138,19 @@ public extension NSObject {
 		method_exchangeImplementations(originalMethod, swizzledMethod)
 	}
 }
+
+public struct Cancelled: Error {
+	public init() {}
+}
+
+public extension Error {
+	var isCancelled: Bool { self is Cancelled }
+}
+
+public extension Result where Failure == Error {
+	static var cancelled: Result { .failure(Cancelled()) }
+}
+
+public extension Promise {
+	static var cancelled: Promise { .error(Cancelled()) }
+}

@@ -82,3 +82,21 @@ public extension Array {
 		0 <= index && index < count ? self[index] : nil
 	}
 }
+
+extension Array: Monoid {
+	public static var empty: [Element] { [] }
+	public mutating func combine(_ x: [Element]) { append(contentsOf: x) }
+}
+extension Dictionary: Monoid {
+	public static var empty: [Key: Value] { [:] }
+	public mutating func combine(_ x: [Key: Value]) { merge(x, uniquingKeysWith: { _, x in x }) }
+}
+extension Set: Monoid {
+	public static var empty: Set<Element> { [] }
+	public mutating func combine(_ x: Set<Element>) { formUnion(x) }
+}
+extension String: Monoid {
+	public static var empty: String { "" }
+	public mutating func combine(_ x: String) { append(x) }
+}
+
