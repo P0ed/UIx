@@ -14,7 +14,7 @@ let package = Package(
 		),
     ],
 	dependencies: [
-		.package(url: "https://github.com/P0ed/Fx", from: "3.2.0"),
+		.package(url: "https://github.com/P0ed/Fx", revision: "bebdc4fba9d122dcda69cbab9ba19ba614736702"),
 	],
     targets: [
         .target(
