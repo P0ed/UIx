@@ -1,6 +1,7 @@
 import UIKit
 import Fx
 
+@MainActor
 public protocol GestureRecognizerProtocol {}
 extension UIGestureRecognizer: GestureRecognizerProtocol {}
 

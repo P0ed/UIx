@@ -3,6 +3,7 @@ import Fx
 
 private let kAssociatedActionsKey = UnsafeMutablePointer<Int8>.allocate(capacity: 1)
 
+@MainActor
 public protocol ControlActionFunctionProtocol {}
 
 extension UIControl: ControlActionFunctionProtocol {}

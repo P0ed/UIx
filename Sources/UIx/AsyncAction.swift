@@ -12,7 +12,7 @@ public extension AsyncActionExecutionState {
 }
 
 @propertyWrapper
-public final class AsyncAction<I, O> {
+public final class AsyncAction<I, O: Sendable> {
 	@Property public var isEnabled: Bool
 
 	@MutableProperty public private(set) var running: Promise<O>?
@@ -85,7 +85,7 @@ public extension AsyncAction {
 				guard let running = running else { return }
 				last = running
 				sink(.running)
-				running.onComplete(.main) { [weak running] result in
+				running.onComplete { [weak running] result in
 					guard last === running else { return }
 					sink(result.error.map(AsyncActionExecutionState.error) ?? .idle)
 				}
@@ -142,7 +142,7 @@ public extension AsyncAction where I == Void, O == Void {
 		public var page: Int
 		public var perPage: Int?
 	}
-	struct PaginationOut {
+	struct PaginationOut: Sendable {
 		public var isEmpty: Bool
 
 		public static func isEmpty(_ isEmpty: Bool) -> PaginationOut { Self(isEmpty: isEmpty) }
@@ -170,7 +170,7 @@ public extension AsyncAction {
 		let loaded = MutableProperty(false)
 		return AsyncAction(
 			isEnabled: loaded.not,
-			action: { action($0).with(.main) { _ in loaded.value = true } }
+			action: { action($0).with { _ in loaded.value = true } }
 		)
 	}
 }

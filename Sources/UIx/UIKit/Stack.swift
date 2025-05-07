@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 public func HStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -15,6 +16,7 @@ public func HStack(
 	)
 }
 
+@MainActor
 public func VStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -30,13 +32,17 @@ public func VStack(
 	)
 }
 
+@MainActor
 public func HStack(_ views: [UIView]) -> UIStackView { HStack(views: views) }
+@MainActor
 public func VStack(_ views: [UIView]) -> UIStackView { VStack(views: views) }
 
+@MainActor
 public func ZStack(_ views: [UIView]) -> UIView {
 	views.reduce(into: UIView()) { $0.pinSubview($1) }
 }
 
+@MainActor
 public func HStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -45,6 +51,7 @@ public func HStack(
 	{ HStack(distribution: distribution, alignment: alignment, spacing: spacing, views: $0) }
 }
 
+@MainActor
 public func VStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -54,6 +61,7 @@ public func VStack(
 }
 
 // TODO: Replace this with builder functions
+@MainActor
 public func HStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -68,6 +76,7 @@ public func HStack(
 	)
 }
 
+@MainActor
 public func VStack(
 	distribution: UIStackView.Distribution = .fill,
 	alignment: UIStackView.Alignment = .fill,
@@ -83,7 +92,7 @@ public func VStack(
 }
 
 public extension Sequence where Element: UIView {
-
+	@MainActor
 	func joined(separator: @autoclosure () -> UIView) -> [UIView] {
 		reduce(into: []) { r, e in r += r.isEmpty ? [e] : [separator(), e] }
 	}

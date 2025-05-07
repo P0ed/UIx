@@ -23,6 +23,7 @@ public extension SearchPattern where A == B {
 	}
 }
 
+@MainActor
 public extension SearchPattern where B == UIStackView {
 	static func stack(_ axis: NSLayoutConstraint.Axis) -> SearchPattern {
 		.type(UIStackView.self).and { $0.axis == axis }

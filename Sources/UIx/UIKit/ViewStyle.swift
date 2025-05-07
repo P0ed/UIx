@@ -1,15 +1,16 @@
 import UIKit
 import Fx
 
+@MainActor
 public struct ViewStyle<View: UIView> {
-	public var apply: (View) -> Void
+	public var apply: @MainActor (View) -> Void
 
-	public init(apply: @escaping (View) -> Void) {
+	public init(apply: @MainActor @escaping (View) -> Void) {
 		self.apply = apply
 	}
 }
 
-extension ViewStyle: Monoid {
+extension ViewStyle: @preconcurrency Monoid {
 	public static var empty: ViewStyle { ViewStyle { _ in } }
 	public mutating func combine(_ x: ViewStyle<View>) {
 		apply = { [apply] view in apply(view); x.apply(view) }
@@ -19,6 +20,7 @@ extension ViewStyle: Monoid {
 public protocol Stylable {}
 extension UIView: Stylable {}
 
+@MainActor
 public extension Stylable where Self: UIView {
 	func applyStyle(_ style: ViewStyle<Self>) {
 		style.apply(self)
@@ -35,7 +37,7 @@ public extension ViewStyle {
 		Self { $0.backgroundColor = color }
 	}
 	static func color(_ color: Property<UIColor>) -> ViewStyle {
-		.binding(\.backgroundColor, to: color)
+		.binding(\View.backgroundColor, to: color)
 	}
 
 	static func subscribing(_ generator: @escaping (View) -> Disposable) -> ViewStyle {
@@ -195,7 +197,7 @@ public struct ControlState {
 
 public extension ViewStyle where View: Button {
 
-	static func controlState(_ effect: @escaping (Button, Property<ControlState>) -> Void) -> ViewStyle {
+	static func controlState(_ effect: @MainActor @escaping (Button, Property<ControlState>) -> Void) -> ViewStyle {
 		Self { button in
 			let state = MutableProperty(ControlState(
 				isEnabled: button.isEnabled,
@@ -209,7 +211,7 @@ public extension ViewStyle where View: Button {
 		}
 	}
 
-	static func highlighted(_ effect: @escaping (Button, Property<Bool>) -> Void) -> ViewStyle {
+	static func highlighted(_ effect: @MainActor @escaping (Button, Property<Bool>) -> Void) -> ViewStyle {
 		controlState { button, state in effect(button, state.map(\.isHighlighted)) }
 	}
 

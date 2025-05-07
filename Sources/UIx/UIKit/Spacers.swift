@@ -30,16 +30,19 @@ public final class DynamicSpacer: UIView {
 	public override var intrinsicContentSize: CGSize { size }
 }
 
+@MainActor
 public func HSpacer(_ width: CGFloat) -> UIView {
 	Spacer(size: CGSize(width: width, height: UIView.noIntrinsicMetric))
 }
+@MainActor
 public func VSpacer(_ height: CGFloat) -> UIView {
 	Spacer(size: CGSize(width: UIView.noIntrinsicMetric, height: height))
 }
-
+@MainActor
 public func HSpacer(_ width: Property<CGFloat>) -> UIView {
 	DynamicSpacer(size: width.map { CGSize(width: $0, height: UIView.noIntrinsicMetric) })
 }
+@MainActor
 public func VSpacer(_ height: Property<CGFloat>) -> UIView {
 	DynamicSpacer(size: height.map { CGSize(width: UIView.noIntrinsicMetric, height: $0) })
 }

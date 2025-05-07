@@ -1,7 +1,7 @@
 import Foundation
 import Fx
 
-public final class AsyncOperation<A>: Operation {
+public final class AsyncOperation<A: Sendable>: Operation, @unchecked Sendable {
 
 	public override var isAsynchronous: Bool { true }
 
@@ -39,7 +39,7 @@ public final class AsyncOperation<A>: Operation {
 			task = runTask()
 			notifyKVO()
 
-			task?.result.onComplete(.sync) { [weak self] result in
+			task?.result.onComplete { [weak self] result in
 				self?.resolve(result)
 				self?.notifyKVO()
 			}

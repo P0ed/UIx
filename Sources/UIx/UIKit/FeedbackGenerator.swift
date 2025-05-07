@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 public struct FeedbackGenerator<Input> {
 	public var generate: (Input) -> Void
 }

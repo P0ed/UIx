@@ -52,6 +52,7 @@ public extension UIView {
 	}
 }
 
+@MainActor
 public protocol LayoutBox where Self: NSObject {
 	var leadingAnchor: NSLayoutXAxisAnchor { get }
 	var trailingAnchor: NSLayoutXAxisAnchor { get }
@@ -68,6 +69,7 @@ public protocol LayoutBox where Self: NSObject {
 extension UIView: LayoutBox {}
 extension UILayoutGuide: LayoutBox {}
 
+@MainActor
 public struct EdgeConstraints {
 	public var top: NSLayoutConstraint?
 	public var left: NSLayoutConstraint?
@@ -84,6 +86,7 @@ public extension EdgeConstraints {
 	}
 }
 
+@MainActor
 public struct SizeConstraints {
 	public var width: NSLayoutConstraint
 	public var height: NSLayoutConstraint
@@ -325,16 +328,17 @@ public extension UIEdgeInsets {
 	var vertical: CGFloat { top + bottom }
 }
 
-extension UIEdgeInsets: Monoid {
-
-	public static let empty: UIEdgeInsets = .zero
-
+extension UIEdgeInsets: @retroactive Semigroup {
 	public mutating func combine(_ x: UIEdgeInsets) {
 		top += x.top
 		left += x.left
 		bottom += x.bottom
 		right += x.right
 	}
+}
+
+extension UIEdgeInsets: @retroactive Monoid {
+	public static let empty: UIEdgeInsets = .zero
 }
 
 public extension CGRect {

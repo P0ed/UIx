@@ -1,7 +1,7 @@
 import Fx
 import Foundation
 
-public struct Task<A> {
+public struct Task<A: Sendable>: Sendable {
 	public let result: Promise<A>
 	public let cancel: ManualDisposable
 
@@ -17,16 +17,16 @@ public extension Task {
 		Task(result: result, cancel: ManualDisposable(action: {}))
 	}
 
-	func map<B>(_ ctx: ExecutionContext = .default(), _ f: @escaping (A) -> B) -> Task<B> {
-		Task<B>(result: result.map(ctx, f), cancel: cancel)
+	func map<B: Sendable>(_ f: @isolated(any) @Sendable @escaping (A) throws -> B) -> Task<B> {
+		Task<B>(result: result.map(f), cancel: cancel)
 	}
 
-	func flatMap<B>(_ ctx: ExecutionContext, _ f: @escaping (A) throws -> Task<B>) -> Task<B> {
+	func flatMap<B: Sendable>(_ f: @isolated(any) @Sendable @escaping (A) throws -> Task<B>) -> Task<B> {
 		let cancelNext = Atomic<ManualDisposable?>(nil)
 		return Task<B>(
-			result: result.flatMap(ctx) { x in
+			result: result.isolatedFlatMap { x in
 				do {
-					let next = try f(x)
+					let next = try await f(x)
 					cancelNext.value = next.cancel
 					return next.result
 				}
@@ -41,11 +41,11 @@ public extension Task {
 		)
 	}
 
-	func recover(_ ctx: ExecutionContext, _ f: @escaping (Error) throws -> Task<A>) -> Task<A> {
+	func recover(_ f: @escaping (Error) throws -> Task<A>) -> Task<A> {
 		let cancelNext = Atomic<ManualDisposable?>(nil)
 		let isCancelled = Atomic<Bool>(false)
 		return Task<A>(
-			result: result.flatMapError(ctx) { (e) -> Promise<A> in
+			result: result.flatMapError { (e) -> Promise<A> in
 				isCancelled.withValue { isCancelled in
 					if isCancelled {
 						return Promise(error: e)
@@ -68,8 +68,8 @@ public extension Task {
 		)
 	}
 
-	func onComplete(_ ctx: ExecutionContext, _ f: @escaping (Result<A, Error>) -> Void) -> ManualDisposable {
-		result.onComplete(ctx, f)
+	func onComplete(_ f: @isolated(any) @Sendable @escaping (Result<A, Error>) -> Void) -> ManualDisposable {
+		result.onComplete(f)
 		return cancel
 	}
 }

@@ -28,7 +28,7 @@ public extension NSObject {
 
 public extension NSObject {
 
-	private static let lifetimeKey = UnsafeRawPointer.allocateByte()
+	nonisolated(unsafe) private static let lifetimeKey = UnsafeRawPointer.allocateByte()
 
 	var lifetime: CompositeDisposable {
 		if let disposable: CompositeDisposable = getAssociatedObject(key: NSObject.lifetimeKey) { return disposable }

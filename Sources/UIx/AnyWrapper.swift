@@ -75,7 +75,3 @@ public extension IO {
 		)
 	}
 }
-
-public extension MutableProperty {
-	var io: IO<A> { IO(get: { self.value }, set: { self.value = $0 }) }
-}

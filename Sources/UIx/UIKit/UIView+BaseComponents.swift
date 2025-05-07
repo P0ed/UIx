@@ -1,8 +1,11 @@
 import UIKit
 import Fx
 
+@MainActor
 public let CenterX = HStack(alignment: .center) • lift
+@MainActor
 public let CenterY = VStack(alignment: .center) • lift
+@MainActor
 public let CenterXY = CenterX • CenterY
 
 public extension UIView {
@@ -39,7 +42,12 @@ public extension UIView {
 	}
 	static func line(text: Property<NSAttributedString>, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
 		UILabel().applyingStyle § ∑[
-			.binding(\.attributedText, to: text),
+			.binding(\.attributedText, to: text.map {
+				if !Thread.isMainThread {
+					print($0)
+				}
+				return $0
+			}),
 			labelStyle
 		]
 	}
