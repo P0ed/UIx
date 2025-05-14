@@ -1,6 +1,8 @@
+import Fx
+
 public extension Optional {
 
-	func unwrap(_ fallbackError: @autoclosure () -> Error) throws -> Wrapped {
+	func unwrap(_ fallbackError: @autoclosure () -> Error = UnexpectedNilValueError()) throws -> Wrapped {
 		guard let value = self
 			else { throw fallbackError() }
 		return value
