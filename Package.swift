@@ -13,7 +13,7 @@ let package = Package(
 		),
     ],
 	dependencies: [
-		.package(url: "https://github.com/P0ed/Fx", branch: "master"),
+		.package(url: "https://github.com/P0ed/Fx", branch: "main"),
 	],
     targets: [
         .target(

@@ -16,13 +16,13 @@ public final class AsyncOperation<A: Sendable>: Operation, @unchecked Sendable {
 		task?.result.isCompleted ?? false
 	}
 
-	private var runTask: (() -> Task<A>)?
-	private var task: Task<A>?
+	private var runTask: (() -> AsyncTask<A>)?
+	private var task: AsyncTask<A>?
 
 	public let result: Promise<A>
 	private let resolve: (Result<A, Error>) -> Void
 
-	public init(generator: @escaping () -> Task<A>) {
+	public init(generator: @escaping () -> AsyncTask<A>) {
 		runTask = generator
 		(result, resolve) = Promise<A>.pending()
 	}

@@ -51,7 +51,7 @@ public final class AsyncAction<I, O: Sendable> {
 	public init(
 		isEnabled: Property<Bool> = .const(true),
 		disabled: @escaping (I) -> Promise<O> = notAvailable,
-		cancellableAction: @escaping (I) -> Task<O>
+		cancellableAction: @escaping (I) -> AsyncTask<O>
 	) {
 		_isEnabled = isEnabled
 
