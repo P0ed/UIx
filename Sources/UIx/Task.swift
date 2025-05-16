@@ -87,12 +87,12 @@ public extension OperationQueue {
 	}
 
 	@discardableResult
-	func promise<A>(priority: Operation.QueuePriority, _ generator: @escaping () -> Promise<A>) -> Promise<A> {
+	func promise<A: Sendable>(priority: Operation.QueuePriority, _ generator: @escaping () -> Promise<A>) -> Promise<A> {
 		addTask(priority: priority, generator: AsyncTask.result • generator).result
 	}
 
 	@discardableResult
-	func promise<A>(_ generator: @escaping () -> Promise<A>) -> Promise<A> {
+	func promise<A: Sendable>(_ generator: @escaping () -> Promise<A>) -> Promise<A> {
 		promise(priority: .normal, generator)
 	}
 }
