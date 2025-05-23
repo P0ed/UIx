@@ -52,16 +52,13 @@ public extension UIView {
 }
 
 private extension Collection {
-	/// Tries to find the first element which can be casted to target.
-	/// Difference between `compactMap.first` is it will break the circuit if the
-	/// target was found. `compactMap` on other hand will try to map all elements
+
 	func find<Target>(with closure: (Element) throws -> Target?) rethrows -> Target? {
 		for element in self {
 			if let target = try closure(element) {
 				return target
 			}
 		}
-
 		return nil
 	}
 }
