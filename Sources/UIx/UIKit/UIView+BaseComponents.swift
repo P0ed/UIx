@@ -42,12 +42,7 @@ public extension UIView {
 	}
 	static func line(text: Property<NSAttributedString>, labelStyle: ViewStyle<UILabel> = .empty) -> UIView {
 		UILabel().applyingStyle § ∑[
-			.binding(\.attributedText, to: text.map {
-				if !Thread.isMainThread {
-					print($0)
-				}
-				return $0
-			}),
+			.binding(\.attributedText, to: text),
 			labelStyle
 		]
 	}
