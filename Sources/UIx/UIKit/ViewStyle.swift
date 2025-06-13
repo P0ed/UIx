@@ -160,17 +160,6 @@ public extension ViewStyle where View: UIButton {
 		ViewStyle { $0.setButtonAction(action) }
 	}
 
-//	static func text(text: Property<String>, style: TextStyle = .empty, color: UIColor, highlighted: UIColor? = nil, labelStyle: ViewStyle<UILabel> = .empty) -> ViewStyle {
-//		ViewStyle {
-//			$0.apply(text) { button, text in
-//				let highlighted = highlighted ?? color.darker
-//				button.setAttributedTitle(.make(string: text, style: style.colored(color)), for: .normal)
-//				button.setAttributedTitle(.make(string: text, style: style.colored(highlighted)), for: .highlighted)
-//				button.titleLabel.map(labelStyle.apply)
-//			}
-//		}
-//	}
-
 	static func image(_ image: UIImage?) -> ViewStyle {
 		Self { $0.setImage(image, for: .normal) }
 	}
@@ -233,28 +222,6 @@ public extension ViewStyle where View: Button {
 			button.bind(\.tintColor, to: isHighlighted.map { $0 ? highlighted : normal })
 		}
 	}
-
-//	static func defaultPillShape(title: Property<String>, titleColor: UIColor, backgroundColor: UIColor) -> ViewStyle {
-//		∑[
-//			.pill(height: .defaultButtonHeight),
-//			.shadow(.high),
-//			.highlightedBackground(normal: backgroundColor),
-//			.content(insets: .horizontal(32), .line(
-//				text: title,
-//				style: ∑[
-//					.font(.graphikMedium),
-//					.size(.m),
-//					.color(titleColor),
-//					.alignment(.center)
-//				],
-//				labelStyle: .assigning(\.adjustsFontSizeToFitWidth, to: true)
-//			))
-//		]
-//	}
-
-//	static func defaultPillShape(title: String, titleColor: UIColor, backgroundColor: UIColor) -> ViewStyle {
-//		defaultPillShape(title: const § title, titleColor: titleColor, backgroundColor: backgroundColor)
-//	}
 }
 
 public extension ViewStyle where View: UILabel {
