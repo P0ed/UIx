@@ -30,6 +30,9 @@ public extension UIView {
 	static func color(_ color: Property<UIColor>) -> UIView {
 		UIView().applyingStyle § .binding(\.backgroundColor, to: color)
 	}
+	static func color(_ color: UIColor) -> UIView {
+		UIView().applyingStyle § .assigning(\.backgroundColor, to: color)
+	}
 }
 
 public extension UIView {
