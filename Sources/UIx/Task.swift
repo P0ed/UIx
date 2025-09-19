@@ -18,7 +18,7 @@ public extension AsyncTask {
 	}
 
 	func map<B: Sendable>(_ f: @isolated(any) @Sendable @escaping (A) throws -> B) -> AsyncTask<B> {
-		AsyncTask<B>(result: result.map(f), cancel: cancel)
+		AsyncTask<B>(result: result.isolatedMap(f), cancel: cancel)
 	}
 
 	func flatMap<B: Sendable>(_ f: @isolated(any) @Sendable @escaping (A) throws -> AsyncTask<B>) -> AsyncTask<B> {
@@ -69,7 +69,7 @@ public extension AsyncTask {
 	}
 
 	func onComplete(_ f: @isolated(any) @Sendable @escaping (Result<A, Error>) -> Void) -> ManualDisposable {
-		result.onComplete(f)
+		result.isolatedOnComplete(f)
 		return cancel
 	}
 }
