@@ -58,6 +58,10 @@ public extension UIColor {
 		style == .unspecified ? self : resolvedColor(with: UITraitCollection(userInterfaceStyle: style))
 	}
 
+	var invertedTheme: UIColor {
+		UIColor(light: resolved(.dark), dark: resolved(.light))
+	}
+
 	var rgba32: RGBA32 {
 		let rgba = self.rgba
 		return RGBA32(
