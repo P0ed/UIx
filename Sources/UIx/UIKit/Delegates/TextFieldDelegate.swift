@@ -36,7 +36,7 @@ public final class TextFieldDelegate: NSObject, UITextFieldDelegate {
 	}
 
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
-		didEndEditing(textField)
+		didBeginEditing(textField)
 	}
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
