@@ -1,6 +1,7 @@
 import UIKit
 import Fx
 
+@MainActor
 private let kAssociatedActionsKey = UnsafeMutablePointer<Int8>.allocate(capacity: 1)
 
 @MainActor
