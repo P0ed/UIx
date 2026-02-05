@@ -12,7 +12,7 @@ public extension UIView {
 		priority: UILayoutPriority = .required,
 		guide: UILayoutGuide? = nil
 	) -> EdgeConstraints {
-		if let idx = idx {
+		if let idx {
 			insertSubview(view, at: idx)
 		} else {
 			addSubview(view)

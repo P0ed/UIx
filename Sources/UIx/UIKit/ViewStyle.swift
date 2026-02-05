@@ -146,7 +146,7 @@ public extension ViewStyle {
 		Self { $0.becomeFirstResponder() }
 	}
 
-	static func subview(insets: Property<UIEdgeInsets>, view: UIView) -> ViewStyle {
+	static func subview(insets: Property<UIEdgeInsets> = .const(.zero), view: UIView) -> ViewStyle {
 		Self { container in
 			let constraints = container.pinSubview(view)
 			container.apply(insets) { _, insets in constraints.setInsets(insets) }
