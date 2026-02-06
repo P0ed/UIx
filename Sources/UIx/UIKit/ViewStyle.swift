@@ -83,6 +83,7 @@ public extension ViewStyle {
 		Self {
 			$0.layer.cornerRadius = radius
 			$0.layer.masksToBounds = true
+			$0.layer.cornerCurve = .continuous
 		}
 	}
 
